@@ -35,13 +35,18 @@ def get_sample_cluster_data(N,D = 2):
 
 # test for failure
 
-def different_density_clusters():
+def elongated_clusters(axis = 0):
   """
-  Return a dataset of 1000 samples where a small subset is sampled from a different density.
+  Creates a dataset with elongated distributions (make half the data wider with respect to one axis)
+  Arguments:
+    - axis: the axis to elongate the samples with respect to
+      - 0: elongate with respect to the vertical axis
+      - 1: elongate with respect to the horizontal axis
   """
+  changed_mean = [5, 0] if axis == 0 else [0,5]
   X = np.zeros((1000, 2))
-  X[:950,:] = np.array([0,0]) + np.random.randn(950, 2)
-  X[950:,:] = np.array([3,0]) + np.random.randn(50, 2)
+  X[:500,:] = np.random.multivariate_normal([0, 0], [[1, 0], [0, 20]], 500) # sample from the mean 0
+  X[500:,:] = np.random.multivariate_normal(changed_mean, [[1, 0], [0, 20]], 500) # keep the same covariance matrix, change the mean
   return X
 
 
