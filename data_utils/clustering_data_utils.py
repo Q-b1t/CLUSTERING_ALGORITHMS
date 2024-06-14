@@ -1,4 +1,6 @@
 import numpy as np
+import pandas as pd
+from sklearn.utils import shuffle
 
 def get_sample_cluster_data(N,D = 2):
   """
