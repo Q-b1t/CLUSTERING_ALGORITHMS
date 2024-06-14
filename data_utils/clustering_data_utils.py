@@ -87,3 +87,34 @@ def donut_clusters(n = 1000,cluster_number = 4, radius_distance = 10):
     radius += radius_distance # update the distance for generating the next cluster
   X = np.concatenate(clusters)
   return X
+
+
+# the same function present in my repository for unsupervised learning. I put it here for mere convenience when importing dependencies for my stuff.
+def get_mnist(data_path,lower_limit = None,shuffle_data = False):
+    """
+    The function extracts the training data from the kaggle digit recognizer dataset.
+    Arguments
+        data_path: the full path of the file we wish to process. The code is thought to work in kaggle's dataset format
+        lower_limit: float between 0 and 1 denoting the percentage of the data we wish to extract
+        shuffle_data: boolean value denoting whether to shuffle or not the data. The convention is to shuffle for the training set
+    """
+    shuffle_data = float(shuffle_data)
+    dataset = pd.read_csv(data_path)
+    data = dataset.to_numpy()
+    # dataset shape:  (42000, 785) where columns 0 are the labels and col [1:785] are pixel values
+    # divide dataset into features and labels
+    X,y = data[:,1:],data[:,0]
+    x = X / 255.0 # normalize the data between 0 and 1
+    # shuffle the data
+    if shuffle_data:
+        X,y = shuffle(X,y)
+    if lower_limit is not None:
+        # verify the data
+        if lower_limit > 0.0 and lower_limit <= 1.0:
+            threshold = len(data) * lower_limit
+            threshold = int(threshold)
+            X,y = X[:threshold],y[:threshold]     
+        else:
+            print(f"[-] The limit {lower_limit} is not in the required interval [0.0:1.0]")
+            raise TypeError
+    return X,y
