@@ -106,7 +106,7 @@ def get_mnist(data_path,lower_limit = None,shuffle_data = False):
     # dataset shape:  (42000, 785) where columns 0 are the labels and col [1:785] are pixel values
     # divide dataset into features and labels
     X,y = data[:,1:],data[:,0]
-    x = X / 255.0 # normalize the data between 0 and 1
+    X = X / 255.0 # normalize the data between 0 and 1
     # shuffle the data
     if shuffle_data:
         X,y = shuffle(X,y)
