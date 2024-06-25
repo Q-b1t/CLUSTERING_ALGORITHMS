@@ -60,7 +60,7 @@ class SoftKMeansClustering:
     """
     # get explicit labels assigned from the cluster with the max weight
     C = np.argmax(self.R,axis = 1)
-    N, K = R.shape # get the number of samples and labels (clusters)
+    N, K = self.R.shape # get the number of samples and labels (clusters)
     
     purity = 0.0
     for k in range(K): # iterate throough the clusters
