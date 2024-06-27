@@ -195,3 +195,4 @@ class SoftKMeansClustering:
     plt.title("Costs")
     plt.subplot(1,2,2)
     plt.scatter(X[:,0], X[:,1], c=colors)
+    plt.title(f"K:{K}")
