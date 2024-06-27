@@ -1,3 +1,5 @@
+
+import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm as tqdm
 
@@ -173,3 +175,23 @@ class SoftKMeansClustering:
     #print(f"[~] Final Cost {costs[-1]}")
     self.M,self.R,self.costs = M,R,costs
     return M, R,costs
+  
+  def plot_clustering_results(self,X,K = None):
+    """
+    Plots the training points (they need to be a R2 vector space) with a color gradient,
+    which varies on which cluster does it belongs to according to the model
+    Arguments:
+      - X: training data
+      - K: number of cluster. It will be infered from the responsability matrix's dimentions
+        if it is not provided
+    """
+    if K is None:
+      _,K = self.R.shape
+    random_colors = np.random.random((K,3))
+    colors = self.R.dot(random_colors)
+    plt.figure(figsize=(10,5))
+    plt.subplot(1,2,1)
+    plt.plot(self.costs)
+    plt.title("Costs")
+    plt.subplot(1,2,2)
+    plt.scatter(X[:,0], X[:,1], c=colors)
