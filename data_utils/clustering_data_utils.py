@@ -2,13 +2,12 @@ import numpy as np
 import pandas as pd
 from sklearn.utils import shuffle
 
-def get_sample_cluster_data(N,D = 2):
+def get_sample_cluster_data(D = 2):
   """
   Returns a sample dataset with 4 clusters. The idea behind this function is to 
   have a benchmark for testing unsupervised learning algorithms implementations
   for debugging and troubleshooting purposes.
   Parameters:
-  - N: Number of samples required.
   - D: Number of features. It is recomended to use 2 as this is a dimentional 
   space that can be plotted. This makes easy to assess whether the implementation
   works.
@@ -20,7 +19,7 @@ def get_sample_cluster_data(N,D = 2):
   mu_4 = np.array([5,0])
 
   # create a placeholder for the training data
-  X = np.zeros((N,D))
+  X = np.zeros((400,D))
 
   # populate the dataset
   X[:100,:] = np.random.randn(100,D) + mu_1
