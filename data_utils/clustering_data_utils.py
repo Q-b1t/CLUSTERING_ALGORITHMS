@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.utils import shuffle
 
-def get_sample_cluster_data(D = 2):
+def get_sample_cluster_data(D = 2,S = 4,N = 400):
   """
   Returns a sample dataset with 4 clusters. The idea behind this function is to 
   have a benchmark for testing unsupervised learning algorithms implementations
@@ -11,30 +11,34 @@ def get_sample_cluster_data(D = 2):
   - D: Number of features. It is recomended to use 2 as this is a dimentional 
   space that can be plotted. This makes easy to assess whether the implementation
   works.
+  - S: Distance in the means
+  - N: Number of samples that will be equally distributed between the 4 clusters
   """
   # means around which the clusters will be created
   mu_1 = np.array([0,0])
-  mu_2 = np.array([5,5])
-  mu_3 = np.array([0,5])
-  mu_4 = np.array([5,0])
+  mu_2 = np.array([S,S])
+  mu_3 = np.array([0,S])
+  mu_4 = np.array([S,0])
 
   # create a placeholder for the training data
-  X = np.zeros((400,D))
+  X = np.zeros((N,D))
 
+  sep = int(N / 4) # equitative separation of the number of samples
+  sep_2 = sep * 2
+  sep_3 = sep * 3
   # populate the dataset
-  X[:100,:] = np.random.randn(100,D) + mu_1
-  X[100:200,:] = np.random.randn(100,D) + mu_2
-  X[200:300,:] = np.random.randn(100,D) + mu_3
-  X[300:,:] = np.random.randn(100,D) + mu_4
+  X[:sep,:] = np.random.randn(sep,D) + mu_1
+  X[sep:sep_2,:] = np.random.randn(sep,D) + mu_2
+  X[sep_2:sep_3,:] = np.random.randn(sep,D) + mu_3
+  X[sep_3:,:] = np.random.randn(sep,D) + mu_4
 
   # labels
-  Y = np.array([0]*100+[1]*100+[2]*100+[3]*100)
+  Y = np.array([0]*sep+[1]*sep+[2]*sep+[3]*sep)
 
   return X,Y
 
 
 
-# test for failure
 
 def elongated_clusters(axis = 0):
   """
